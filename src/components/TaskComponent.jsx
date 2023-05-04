@@ -5,9 +5,10 @@ import Worker from "./Worker";
 import Manager from "./Manager";
 import Button from "react-bootstrap/Button";
 import MyInput from "./UI/MyInput";
+import {AdministratorContext} from "../context";
 
 const TaskComponent = () => {
-
+    const {isAdministrator} = useContext(AdministratorContext)
     const [projectNames, setProjectNames] = useState([
         { id: 1, title: "Project 1" },
         { id: 2, title: "Project 2" },
@@ -20,19 +21,22 @@ const TaskComponent = () => {
             workers: [
             {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
             {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"}
-            ]},
+            ]
+        },
         { id: 2, title: "Project 2", description: "None", managers: [
                 {id: 1, role: "manager", name: "Andrey"}
             ],
             workers: [
                 {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
-            ]},
+            ]
+        },
         { id: 3, title: "Hello world project!", description: "None", managers: [
                 {id: 1, role: "manager", name: "Andrey"}
             ],
             workers: [
-            {id: 3, role: "worker", name: "Hello world worker", total: "10", completed: "5"}
-            ]}
+                {id: 3, role: "worker", name: "Hello world worker", total: "10", completed: "5"}
+            ]
+        }
     ])
 
     const deleteWorker = (projectId, workerId) => {
@@ -82,9 +86,11 @@ const TaskComponent = () => {
                                     <Nav.Link eventKey={name.id}>{name.title}</Nav.Link>
                                 </Nav.Item>
                             )}
-                            <Nav.Item>
-                                <Nav.Link className="btn btn-outline-success" eventKey={"NewProj"}>{"Create new project"}</Nav.Link>
-                            </Nav.Item>
+                            {isAdministrator &&
+                                <Nav.Item>
+                                    <Nav.Link className="btn btn-outline-success" eventKey={"NewProj"}>{"Create new project"}</Nav.Link>
+                                </Nav.Item>
+                            }
                         </Nav>
                     </Col>
                     <Col sm={9}>

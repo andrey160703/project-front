@@ -5,6 +5,8 @@ import Tab from "react-bootstrap/Tab";
 import Manager from "./Manager";
 import Button from "react-bootstrap/Button";
 import Worker from "./Worker";
+import './selectedButtons.css';
+import Project from "./Project";
 
 const ManagersComponent = () => {
 
@@ -14,39 +16,25 @@ const ManagersComponent = () => {
         {id: 3, name: "Ilya"}
     ])
 
-    const [workersList, setWorkersList] = useState([  /// По список воркеров
+    const [projectList, setProjectList] = useState([  /// По список воркеров
         {
-            id: 1, workers: [
-                {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
-                {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"}
+            id: 1, projects: [
+                {id: 1, title: "Project 1", description: "None"},
+                {id: 2, title: "Project 2", description: "None"},
+                {id: 3, title: "Hello world project!", description: "None"}
+            ],
+        },
+        {
+            id: 2, projects: [
+                {id: 2, title: "Project 2", description: "None"}
             ]
         },
         {
-            id: 2, workers: [
-                {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
-            ]
-        },
-        {
-            id: 3, workers: [
-                {id: 3, role: "worker", name: "Hello world worker", total: "10", completed: "5"}
-            ]
+            id: 3, projects:[]
         }
     ])
 
-    const deleteWorker = (managerId, workerId) => {
-        const updatedWorkersList = workersList.map(manager => {
-            if (manager.id !== managerId) {
-                return manager;
-            }
-            const updatedWorkers = manager.workers.filter(worker => worker.id !== workerId);
-            return Object.assign({}, manager, {workers: updatedWorkers});
-        });
-        setWorkersList(updatedWorkersList);
-    }
-
     const [searchQuery, setSearchQuery] = useState('')
-
-    const [activeKey, setActiveKey] = useState("Projects");
 
     const selectedList = useMemo(() => {
         if (searchQuery) {
@@ -78,22 +66,19 @@ const ManagersComponent = () => {
                         </Nav>
                     </Col>
                     <Col sm={9}>
-                            <Button className={activeKey === "Projects" ? "bg-light" : "bg-dark" } onClick = {() => setActiveKey("Projects")}>Projects</Button>
-                            <Button className={activeKey === "Workers" ? "bg-light" : "bg-dark" } onClick = {() => setActiveKey("Workers")}>Workers</Button>
                         <Tab.Content className="mt-3">
-                            {workersList.map(manager =>
+                          {projectList.map(manager => // todo GET request
                                 <Tab.Pane eventKey={manager.id}>
                                     <h4 className="mt-1 ms-2">
-                                        Workers:
+                                        Projects:
                                     </h4>
-                                    {manager.workers.map(worker =>
-                                        <Worker callBackDeleteFunction={deleteWorker} workerId={worker.id}
-                                                linkedId={manager.id} role={worker.role} name={worker.name}
-                                                total={worker.total} completed={worker.completed}/>
+                                    {manager.projects.map(proj =>
+                                        <Project projectId={proj.id}
+                                                 linkedId={manager.id}
+                                                 title={proj.title}
+                                                 description={proj.description}
+                                        />
                                     )}
-                                    <Button className="mt-1 ms-2 w-100" variant="light" style={{borderColor: 'black'}}>
-                                        Add new worker
-                                    </Button>
                                     <Button className="mt-3 ms-2">
                                         Save changes
                                     </Button>
