@@ -1,10 +1,11 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import Worker from "./Worker";
 
 const TestComponent = () => {
     return (
         <div>
-            <Button>2qweqw</Button>
+            <Worker/>
         </div>
     );
 };

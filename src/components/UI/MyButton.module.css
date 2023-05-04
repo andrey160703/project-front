@@ -1,0 +1,118 @@
+/*.myBtn{*/
+/*    padding: 5px 15px 5px 10px;*/
+/*    margin: 15px;*/
+/*    width: 100%;*/
+/*    color: teal;*/
+/*    font-size: 14px;*/
+/*    background: transparent;*/
+/*    border: 1px solid teal;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.myBtn:hover {*/
+/*    border: 1px solid;*/
+/*    background-color: teal;*/
+/*    color: #ffffff;*/
+/*    padding: 5px 10px;*/
+/*}*/
+/*button:disabled,*/
+/*button[disabled] {*/
+/*    border: 1px solid #999999;*/
+/*    background-color: #cccccc;*/
+/*    color: #666666;*/
+/*}*/
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+.myBtn{
+    width: 100%;
+    padding: 5px 15px 5px 10px;
+    margin: 15px;
+    color: #2196f3;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 24px;
+    letter-spacing: 2px;
+    overflow: hidden;
+    border-width: 0px;
+}
+
+.button__line{
+    position: absolute;
+    display: block;
+}
+
+.button__lineTop{
+    top: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, #2196f3);
+}
+.myBtn:disabled .button__lineTop{
+    left: -100%;
+}
+.button__lineTop{
+    left:100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+
+.button__lineRight{
+    right: 0;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(transparent, #2196f3);
+}
+.myBtn:disabled .button__lineRight{
+    top: -100%
+}
+.button__lineRight{
+    top:100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+.button__lineBottom{
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #2196f3, transparent);
+}
+.myBtn:disabled .button__lineBottom{
+    right: -100%;
+}
+.button__lineBottom{
+    right:100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+
+.button__lineLeft{
+    left: 0;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(#2196f3, transparent);
+}
+.myBtn:disabled .button__lineLeft{
+    bottom: -100%;
+}
+.button__lineLeft{
+    bottom:100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+.myBtn:disabled{
+    box-shadow: 0 0 0 #2196f3;
+    color: gray;
+}
+.myBtn{
+    box-shadow: 0 0 10px #2196f3;
+    background-color: white;
+    transition: 1s;
+    transition-delay: 1s;
+}

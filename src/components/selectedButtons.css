@@ -1,0 +1,19 @@
+.btn-tab {
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.btn-tab:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-tab.active {
+    background-color: #007bff;
+}
