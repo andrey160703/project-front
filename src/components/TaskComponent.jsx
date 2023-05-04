@@ -6,9 +6,11 @@ import Manager from "./Manager";
 import Button from "react-bootstrap/Button";
 import MyInput from "./UI/MyInput";
 import {AdministratorContext} from "../context";
+import {useParams} from "react-router-dom";
 
 const TaskComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
+    const params = useParams()
     const [projectNames, setProjectNames] = useState([
         { id: 1, title: "Project 1" },
         { id: 2, title: "Project 2" },
@@ -24,7 +26,8 @@ const TaskComponent = () => {
             ]
         },
         { id: 2, title: "Project 2", description: "None", managers: [
-                {id: 1, role: "manager", name: "Andrey"}
+                {id: 1, role: "manager", name: "Andrey"},
+                {id: 2, role: "manager", name: "Semen"}
             ],
             workers: [
                 {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
@@ -77,7 +80,7 @@ const TaskComponent = () => {
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Search project"
             />
-            <Tab.Container id="left-tabs-example" defaultActiveKey="1">
+            <Tab.Container id="left-tabs-example" defaultActiveKey={params ? params.id : '1'}>
                 <Row>
                     <Col sm={3}>
                         <Nav variant="pills" className="flex-column mt-2">
@@ -109,18 +112,23 @@ const TaskComponent = () => {
                                     {proj.managers.map(manager =>
                                         <Manager callBackDeleteFunction={deleteManager} managerId={manager.id} projectId={proj.id} role={manager.role} name={manager.name}/>
                                     )}
-                                    <Button variant="light" className="mt-1 ms-2 w-100" style={{borderColor: 'hsl(190, 100%, 50%)', color: 'hsl(190, 100%, 50%)'}}>
-                                        Add new manager
-                                    </Button>
+                                    {isAdministrator &&
+                                        <Button variant="light" className="mt-1 ms-2 w-100" style={{borderColor: 'hsl(190, 100%, 50%)', color: 'hsl(190, 100%, 50%)'}}>
+                                            Add new manager
+                                        </Button>
+                                    }
                                     <h4 className="mt-1 ms-2">
                                         Workers:
                                     </h4>
                                     {proj.workers.map(worker =>
                                         <Worker callBackDeleteFunction={deleteWorker} workerId={worker.id} linkedId={proj.id} role={worker.role} name={worker.name} total={worker.total} completed={worker.completed}/>
                                     )}
-                                    <Button className="mt-1 ms-2 w-100" variant="light" style={{borderColor: 'black'}}>
+
+                                    {isAdministrator &&
+                                        <Button className="mt-1 ms-2 w-100" variant="light" style={{borderColor: 'black'}}>
                                         Add new worker
-                                    </Button>
+                                        </Button>
+                                    }
                                     <Button className="mt-3 ms-2">
                                         Save changes
                                     </Button>

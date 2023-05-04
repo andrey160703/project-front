@@ -54,20 +54,22 @@ const Header = () => {
                         >
                             Projects
                         </Button>
-                        {isAdministrator && (
+                        {isAdministrator &&
                             <Button
                                 className="ml-auto border-dark bg-dark"
                                 onClick={goToManagersPage}
                             >
                                 Managers
                             </Button>
-                        )}
-                        <Button
-                            className="ml-auto border-dark bg-dark"
-                            onClick={goToWorkersPage}
-                        >
-                            Workers
-                        </Button>
+                        }
+                        {isAdministrator &&
+                            <Button
+                                className="ml-auto border-dark bg-dark"
+                                onClick={goToWorkersPage}
+                            >
+                                Workers
+                            </Button>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

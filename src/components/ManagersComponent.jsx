@@ -7,8 +7,11 @@ import Button from "react-bootstrap/Button";
 import Worker from "./Worker";
 import './selectedButtons.css';
 import Project from "./Project";
+import {useNavigate} from "react-router-dom";
 
 const ManagersComponent = () => {
+
+    const navigate = useNavigate(); // инициализируем хук useNavigate
 
     const [managersList, setManagersList] = useState([ /// По имени менеджера мы видим список его воркеров
         {id: 1, name: "Andrey"},
@@ -43,6 +46,11 @@ const ManagersComponent = () => {
         return managersList
     }, [searchQuery])
 
+    const goToProjectsPage = (id) => {
+        console.log("123")
+        navigate('/projects/' + id);
+    };
+
     return (
         <Container>
             <MyInput
@@ -73,10 +81,12 @@ const ManagersComponent = () => {
                                         Projects:
                                     </h4>
                                     {manager.projects.map(proj =>
-                                        <Project projectId={proj.id}
-                                                 linkedId={manager.id}
-                                                 title={proj.title}
-                                                 description={proj.description}
+                                        <Project
+                                            callBackFunction={goToProjectsPage}
+                                            projectId={proj.id}
+                                            linkedId={manager.id}
+                                            title={proj.title}
+                                            description={proj.description}
                                         />
                                     )}
                                     <Button className="mt-3 ms-2">

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Project.css'
 import Button from 'react-bootstrap/Button';
-const Project = ({callBackDeleteFunction, projectId, linkedId, title, description}) => {
+const Project = ({callBackFunction, projectId, linkedId, title, description}) => {
     return (
         <div className="Project">
             <div className="Project-Photo">
@@ -23,7 +23,7 @@ const Project = ({callBackDeleteFunction, projectId, linkedId, title, descriptio
                 Here will be description about this worker (need this case or not?)
             </div>
             <div className="Buttons">
-                <Button style={{margin: '5px 10px 0px 0px', width: "100%"}}>View project</Button>
+                <Button onClick={() => callBackFunction(projectId)} style={{margin: '5px 10px 0px 0px', width: "100%"}}>View project</Button>
             </div>
         </div>
     );

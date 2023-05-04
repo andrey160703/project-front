@@ -9,7 +9,7 @@ import Managers from "../../pages/Managers";
 export const administratorPrivateRoutes = [
     {path: '/tasks', element: <Notes/>, exact: true},
     {path: '/index', element: <Index/>, exact: true},
-    {path: '/projects', element: <Projects/>, exact: true},
+    {path: '/projects/:id', element: <Projects/>, exact: true},
     {path: '/managers', element: <Managers/>, exact: true},
     {path: '/workers', element: <Workers/>, exact: true},
     {path: '*', element: <Projects/>},
