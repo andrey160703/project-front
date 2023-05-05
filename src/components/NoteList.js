@@ -5,9 +5,9 @@ import './NoteList.css';
 
 const NoteList = () => {
     const [notes, setNotes] = useState([
-        { id: 1, title: "Test node 1", text: "Task 123123123 test" },
-        { id: 2, title: "Test node 2", text: "Task jjjjjj test" },
-        { id: 3, title: "Hello world note!", text: "Hello world!" }
+        { id: 1, title: "Test note 1", text: "Task 123123123 test", closed: false},
+        { id: 2, title: "Test note 2", text: "Task jjjjjj test", closed: false },
+        { id: 3, title: "Hello world note!", text: "Hello world!", closed: false }
     ]);
 
     function createNewNote() {
@@ -27,7 +27,7 @@ const NoteList = () => {
             </div>
             <div className="NoteList-items">
                 {notes.map(note =>
-                    <Note callBackDeleteFunction={deleteNode} post={{id: note.id, title: note.title, text: note.text}} key={note.id}/>
+                    <Note callBackDeleteFunction={deleteNode} post={{id: note.id, title: note.title, text: note.text, closed: note.closed}} key={note.id}/>
                 )}
             </div>
         </div>

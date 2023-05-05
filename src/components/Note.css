@@ -24,6 +24,7 @@
     height: 150px;
     margin-bottom: 10px;
     resize: none;
+    overflow: auto; /* Добавляем полосу прокрутки */
 }
 
 .NoteFooter {

@@ -4,7 +4,7 @@ import './Note.css';
 const Note = ({ callBackDeleteFunction, ...props }) => {
     const [title, changeTittleFunc] = useState(props.post.title);
     const [text, changeTextFunc] = useState(props.post.text);
-    const [closed, setClosed] = useState(false);
+    const [closed, setClosed] = useState(props.post.closed);
     const [closedDate, setClosedDate] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
