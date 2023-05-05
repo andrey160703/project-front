@@ -7,7 +7,7 @@ import Workers from "../../pages/Workers";
 import Managers from "../../pages/Managers";
 
 export const administratorPrivateRoutes = [
-    {path: '/tasks', element: <Notes/>, exact: true},
+    {path: '/tasksmanager/:projectId/:workerId', element: <Notes/>},
     {path: '/index', element: <Index/>, exact: true},
     {path: '/projects/:id', element: <Projects/>, exact: true},
     {path: '/managers', element: <Managers/>, exact: true},

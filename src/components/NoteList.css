@@ -1,5 +1,53 @@
+/*.NoteList {*/
+/*    width: 100%;*/
+/*    background-color: white;*/
+/*    display: flex;*/
+/*}*/
+
 .NoteList {
-    width: 100%;
-    background-color: white;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.NoteList-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+.NoteList-header h2 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.NoteList-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+@media (min-width: 768px) {
+    .NoteList {
+        margin: 40px 0;
+    }
+
+    .NoteList-header h2 {
+        font-size: 32px;
+    }
+
+    .NoteList-items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }

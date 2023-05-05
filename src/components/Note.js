@@ -1,55 +1,52 @@
-import React, {useState} from 'react';
-import './Note.css'
+import React, { useState } from 'react';
+import './Note.css';
 
-const Note = ({callBackDeleteFunction, ...props}) => {
+const Note = ({ callBackDeleteFunction, ...props }) => {
 
-    let placeholderTextValue = "Your note text"
-    let placeholderHeadingValue = "Your heading"
+    const [title, changeTitle] = useState(props.post.title);
+    const [text, changeText] = useState(props.post.text);
+    const date = new Date().toLocaleDateString();
 
-    const [title, changeTittleFunc] = useState(props.post.title)
-    const [text, changeTextFunc] = useState(props.post.text)
-
-    function saveFunction() {
-
+    function saveNote() {
+        // TODO: Implement save functionality
     }
 
-    function changeHeadingData(args) {
-        changeTittleFunc(args.value)
+    function handleTitleChange(event) {
+        changeTitle(event.target.value);
     }
 
-    function changeTextData(args) {
-        changeTextFunc(args.value)
+    function handleTextChange(event) {
+        changeText(event.target.value);
     }
 
     return (
-        <div className="Note">
-            <div className="NoteWorkSpace">
+        <div className="note">
+            <div className="note-header">
                 <input
-                    className="NoteWorkSpaceHeading"
-                    placeholder={placeholderHeadingValue}
+                    className="note-title"
+                    placeholder="Title"
                     value={title}
-                    onChange={changeHeadingData}
+                    onChange={handleTitleChange}
                 />
-                <input
-                    className="NoteWorkSpaceText"
-                    placeholder={placeholderTextValue}
-                    value={text}
-                    onChange={changeTextData}
-                />
+                <div className="note-date">{date}</div>
             </div>
-            <button
-                className={"NoteButton"}
-                onClick={saveFunction}
-            >
-                Save note
-            </button>
-            <button
-                className={"NoteButton"}
-                onClick={() => callBackDeleteFunction(props.post)}
-            >
-                Delete note
-            </button>
-    </div>);
+            <textarea
+                className="note-text"
+                placeholder="Note text"
+                value={text}
+                onChange={handleTextChange}
+            />
+            <div className="note-footer">
+                <button className="note-button">View report</button>
+                <button
+                    className="note-button delete-button"
+                    onClick={() => callBackDeleteFunction(props.post)}
+                >
+                    Delete note
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default Note;

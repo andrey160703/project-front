@@ -1,38 +1,68 @@
-.Note {
-    width: 150px;
-    height: 260px;
-    background-color: white;
-    padding: 5px 15px 5px 10px;
-    border: teal 1px solid;
-    margin: 10px;
+.note {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    padding: 15px;
+    width: 500px;
 }
 
-.NoteWorkSpace {
-    height: 80%;
-    width: 100%;
-    flex-wrap: wrap;
+.note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.NoteWorkSpaceHeading {
-    height: 20%;
-    width: 100%;
-    padding: 0px 0px;
-    background-color: navajowhite;
+.note-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 20px;
+    border: none;
+    width: 80%;
+}
+
+.note-date {
     font-size: 14px;
+    color: #666;
 }
 
-.NoteWorkSpaceText {
+.note-text {
+    margin-top: 15px;
+    height: 150px;
     width: 100%;
-    height: 80%;
-    padding: 0px 0px;
-    background-color: papayawhip;
+    border: none;
+    resize: none;
+}
+
+.note-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.note-button {
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 15px;
     text-align: center;
-    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
-.NoteButton {
-    width: 100%;
-    height: 20px;
-    padding: 0px 0px 2px 0px;
-    margin: 0px 2px 0px 2px;
+.note-button:hover {
+    background-color: #3e8e41;
+}
+
+.delete-button {
+    background-color: #f44336;
+    margin-left: 10px;
+}
+
+.delete-button:hover {
+    background-color: #c62828;
 }
