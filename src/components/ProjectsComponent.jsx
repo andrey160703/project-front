@@ -8,21 +8,21 @@ import MyInput from "./UI/MyInput";
 import {AdministratorContext} from "../context";
 import {useParams} from "react-router-dom";
 
-const TaskComponent = () => {
+const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
     const params = useParams()
-    const [projectNames, setProjectNames] = useState([
+    const [projectNames, setProjectNames] = useState([  /// todo Get request by all projects(for administrator)/only current manager's projects
         { id: 1, title: "Project 1" },
         { id: 2, title: "Project 2" },
         { id: 3, title: "Hello world project!" }
     ])
-    const [projects, setProjects] = useState([
+    const [projects, setProjects] = useState([  /// todo Get request by project id to get project's information
         { id: 1, title: "Project 1", description: "None", managers: [
                 {id: 1, role: "manager", name: "Andrey"}
             ],
             workers: [
-            {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
-            {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"}
+                {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
+                {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"}
             ]
         },
         { id: 2, title: "Project 2", description: "None", managers: [
@@ -142,4 +142,4 @@ const TaskComponent = () => {
     );
 };
 
-export default TaskComponent;
+export default ProjectsComponent;

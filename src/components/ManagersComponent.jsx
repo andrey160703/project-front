@@ -13,13 +13,13 @@ const ManagersComponent = () => {
 
     const navigate = useNavigate(); // инициализируем хук useNavigate
 
-    const [managersList, setManagersList] = useState([ /// По имени менеджера мы видим список его проектов
+    const [managersList, setManagersList] = useState([ /// todo Get request by all managers
         {id: 1, name: "Andrey"},
         {id: 2, name: "Semen"},
         {id: 3, name: "Ilya"}
     ])
 
-    const [projectList, setProjectList] = useState([  /// Список проектов
+    const [projectList, setProjectList] = useState([  /// todo Get request by manager id to get his projects
         {
             id: 1, projects: [
                 {id: 1, title: "Project 1", description: "None"},
