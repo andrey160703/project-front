@@ -80,7 +80,7 @@ const TaskComponent = () => {
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Search project"
             />
-            <Tab.Container id="left-tabs-example" defaultActiveKey={params ? params.id : '1'}>
+            <Tab.Container id="left-tabs-example" defaultActiveKey={params.id ? params.id : '1'}>
                 <Row>
                     <Col sm={3}>
                         <Nav variant="pills" className="flex-column mt-2">

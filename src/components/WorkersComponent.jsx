@@ -2,18 +2,15 @@ import React, {useMemo, useState} from 'react';
 import {Col, Container, Nav, Row} from "react-bootstrap";
 import MyInput from "./UI/MyInput";
 import Tab from "react-bootstrap/Tab";
-import Manager from "./Manager";
-import Button from "react-bootstrap/Button";
-import Worker from "./Worker";
-import './selectedButtons.css';
 import Project from "./Project";
+import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router-dom";
 
-const ManagersComponent = () => {
+const WorkersComponent = () => {
 
     const navigate = useNavigate(); // инициализируем хук useNavigate
 
-    const [managersList, setManagersList] = useState([ /// По имени менеджера мы видим список его проектов
+    const [workersList, setWorkersList] = useState([ /// По имени менеджера мы видим список его проектов
         {id: 1, name: "Andrey"},
         {id: 2, name: "Semen"},
         {id: 3, name: "Ilya"}
@@ -41,9 +38,9 @@ const ManagersComponent = () => {
 
     const selectedList = useMemo(() => {
         if (searchQuery) {
-            return managersList.filter(manager => manager.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            return workersList.filter(manager => manager.name.toLowerCase().includes(searchQuery.toLowerCase()))
         }
-        return managersList
+        return workersList
     }, [searchQuery])
 
     const goToProjectsPage = (id) => {
@@ -62,9 +59,9 @@ const ManagersComponent = () => {
                 <Row>
                     <Col sm={3}>
                         <Nav variant="pills" className="flex-column mt-2">
-                            {selectedList.map(manager =>
+                            {selectedList.map(worker =>
                                 <Nav.Item>
-                                    <Nav.Link eventKey={manager.id}>{manager.name}</Nav.Link>
+                                    <Nav.Link eventKey={worker.id}>{worker.name}</Nav.Link>
                                 </Nav.Item>
                             )}
                             <Nav.Item>
@@ -75,16 +72,16 @@ const ManagersComponent = () => {
                     </Col>
                     <Col sm={9}>
                         <Tab.Content className="mt-3">
-                          {projectList.map(manager => // todo GET request
-                                <Tab.Pane eventKey={manager.id}>
+                            {projectList.map(worker => // todo GET request
+                                <Tab.Pane eventKey={worker.id}>
                                     <h4 className="mt-1 ms-2">
                                         Projects:
                                     </h4>
-                                    {manager.projects.map(proj =>
+                                    {worker.projects.map(proj =>
                                         <Project
                                             callBackFunction={goToProjectsPage}
                                             projectId={proj.id}
-                                            linkedId={manager.id}
+                                            linkedId={worker.id}
                                             title={proj.title}
                                             description={proj.description}
                                         />
@@ -102,4 +99,4 @@ const ManagersComponent = () => {
     );
 };
 
-export default ManagersComponent;
+export default WorkersComponent;

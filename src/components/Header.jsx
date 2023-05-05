@@ -3,15 +3,27 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { LoginContext } from '../context';
 import { AdministratorContext } from '../context';
 import { useNavigate } from 'react-router-dom';
+import './Header.css'
 
 const Header = () => {
     const navigate = useNavigate(); // инициализируем хук useNavigate
+
+    const currentPage = () => {
+        const page = window.location.pathname.split('/').pop();
+        if (/^\d+$/.test(page)) {
+            const path = window.location.pathname.split('/').slice(0, -1).join('/');
+            return path.split('/').pop() || '/';
+        } else {
+            return page;
+        }
+    }
 
     const { globalLogin } = useContext(LoginContext);
     const { isAdministrator } = useContext(AdministratorContext);
 
     const handleButtonClick = () => {
         console.log('Button clicked!');
+        console.log(currentPage())
     };
 
     const goToManagersPage = () => {
@@ -49,14 +61,14 @@ const Header = () => {
                             </Button>
                         )}
                         <Button
-                            className="mr-3 border-dark bg-dark"
+                            className={"mr-3 border-dark bg-dark " + (currentPage() === "projects" ? "text-glow" : "")}
                             onClick={goToProjectsPage}
                         >
                             Projects
                         </Button>
                         {isAdministrator &&
                             <Button
-                                className="ml-auto border-dark bg-dark"
+                                className={"mr-3 border-dark bg-dark " + (currentPage() === "managers" ? "text-glow" : "")}
                                 onClick={goToManagersPage}
                             >
                                 Managers
@@ -64,7 +76,7 @@ const Header = () => {
                         }
                         {isAdministrator &&
                             <Button
-                                className="ml-auto border-dark bg-dark"
+                                className={"mr-3 border-dark bg-dark " + (currentPage() === "workers" ? "text-glow" : "")}
                                 onClick={goToWorkersPage}
                             >
                                 Workers
