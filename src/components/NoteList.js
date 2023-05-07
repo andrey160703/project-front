@@ -78,6 +78,8 @@ const NoteList = () => {
         let i = 0;
         while (i < notes.length) {
             if (notes.at(i).id === id) {
+                notes.at(i).closedDate = new Date();
+                console.log(notes.at(i).closedDate)
                 notes.at(i).closed = true;
                 break;
             }
