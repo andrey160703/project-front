@@ -65,7 +65,7 @@ const ProjectsComponent = () => {
         setProjects(updatedProjects);
     }
 
-    const goToTaskManagement = (workerId, projectId) => {
+    const goToTaskManagement = (projectId , workerId) => {
         navigate('/tasksmanager/' + projectId + '/' + workerId);
     }
 
