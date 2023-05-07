@@ -6,11 +6,12 @@ import Manager from "./Manager";
 import Button from "react-bootstrap/Button";
 import MyInput from "./UI/MyInput";
 import {AdministratorContext} from "../context";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
     const params = useParams()
+    const navigate = useNavigate(); // инициализируем хук useNavigate
     const [projectNames, setProjectNames] = useState([  /// todo Get request by all projects(for administrator)/only current manager's projects
         { id: 1, title: "Project 1" },
         { id: 2, title: "Project 2" },
@@ -62,6 +63,10 @@ const ProjectsComponent = () => {
             return Object.assign({}, project, {managers: updatedManagers});
         });
         setProjects(updatedProjects);
+    }
+
+    const goToTaskManagement = (workerId, projectId) => {
+        navigate('/tasksmanager/' + projectId + '/' + workerId);
     }
 
     const [searchQuery, setSearchQuery] = useState('')
@@ -121,7 +126,7 @@ const ProjectsComponent = () => {
                                         Workers:
                                     </h4>
                                     {proj.workers.map(worker =>
-                                        <Worker callBackDeleteFunction={deleteWorker} workerId={worker.id} linkedId={proj.id} role={worker.role} name={worker.name} total={worker.total} completed={worker.completed}/>
+                                        <Worker callBackDeleteFunction={deleteWorker} callBackTaskManagementFunction={goToTaskManagement} workerId={worker.id} linkedId={proj.id} role={worker.role} name={worker.name} total={worker.total} completed={worker.completed}/>
                                     )}
 
                                     {isAdministrator &&

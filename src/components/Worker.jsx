@@ -1,7 +1,7 @@
 import React from 'react';
 import './Worker.css'
 import Button from 'react-bootstrap/Button';
-const Worker = ({callBackDeleteFunction, workerId, linkedId, role, name, total, completed}) => {
+const Worker = ({callBackDeleteFunction, callBackTaskManagementFunction, workerId, linkedId, role, name, total, completed}) => {
     return (
         <div className="Worker">
             <div className="Worker-Photo">
@@ -34,7 +34,7 @@ const Worker = ({callBackDeleteFunction, workerId, linkedId, role, name, total, 
                 Here will be description about this worker (need this case or not?)
             </div>
             <div className="Buttons">
-                <Button style={{margin: '5px 10px 0px 0px', width: "100%"}}>Task management</Button>
+                <Button onClick={() => callBackTaskManagementFunction(linkedId, workerId)} style={{margin: '5px 10px 0px 0px', width: "100%"}}>Task management</Button>
                 <Button onClick={() => callBackDeleteFunction(linkedId, workerId)} style={{margin: '5px 10px 0px 0px', width: "100%"}}>Delete this worker</Button>
             </div>
         </div>

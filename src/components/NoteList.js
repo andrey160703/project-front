@@ -3,9 +3,11 @@ import Note from "./Note";
 import NewNoteButton from "./UI/NewNoteButton";
 import "./NoteList.css";
 import note from "./Note";
+import { useParams} from "react-router-dom";
 
 const NoteList = () => {
-    const [notes, setNotes] = useState([
+    const params = useParams()
+    const [notes, setNotes] = useState([ /// todo get request params.projectId params.workerId
         {
             id: 1,
             title: "Test note 1",
@@ -114,8 +116,9 @@ const NoteList = () => {
         (note) => showClosed || !note.closed
     );
 
-    return (
 
+    /// todo show worker's information before notes
+    return (
         <div className="NoteList">
             <div className="NoteList-header">
                 <h2>Notes</h2>
