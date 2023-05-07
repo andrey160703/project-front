@@ -53,7 +53,7 @@ const WorkersComponent = () => {
             <MyInput
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search manager"
+                placeholder="Search worker"
             />
             <Tab.Container id="left-tabs-example" defaultActiveKey="1">
                 <Row>

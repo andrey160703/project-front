@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './Note.css';
 
-const Note = ({ callBackDeleteFunction, ...props }) => {
+const Note = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
     const [title, changeTittleFunc] = useState(props.post.title);
     const [text, changeTextFunc] = useState(props.post.text);
     const [closed, setClosed] = useState(props.post.closed);
-    const [closedDate, setClosedDate] = useState(null);
+    const [closedDate, setClosedDate] = useState(props.post.closedDate);
     const [isEditing, setIsEditing] = useState(false);
 
     function saveFunction() {
@@ -24,6 +24,7 @@ const Note = ({ callBackDeleteFunction, ...props }) => {
     function closeNote() {
         setClosed(true);
         setClosedDate(new Date());
+        callBackCloseFunction(props.post.id)
     }
 
     return (
@@ -52,7 +53,7 @@ const Note = ({ callBackDeleteFunction, ...props }) => {
                         {closed ? (
                             <>
                                 <div className="NoteClosedDate">
-                                    <span className="NoteDate">Created on {new Date(props.post.date).toLocaleDateString()}</span>
+                                    <span className="NoteDate">Created on {props.post.createdDate.toLocaleDateString()}</span>
                                 </div>
                                 <div>
                                     <span className="NoteDate">Closed on {closedDate.toLocaleDateString()}</span>
@@ -60,7 +61,7 @@ const Note = ({ callBackDeleteFunction, ...props }) => {
                             </>
                         ) : (
                             <div className="NoteFooter">
-                                <div className="NoteDate">Created on {new Date(props.post.date).toLocaleDateString()}</div>
+                                <div className="NoteDate">Created on {props.post.createdDate.toLocaleDateString()}</div>
                                 <button className="NoteButton" onClick={() => setIsEditing(true)}>Edit note</button>
                                 <button className="NoteButton">View report</button>
                                 <button className="NoteButton CloseButton" onClick={closeNote}>Close note</button>
