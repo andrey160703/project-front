@@ -1,0 +1,28 @@
+.new-project-form {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.new-project-form h2 {
+    margin-top: 0;
+}
+
+.new-project-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.new-project-form input,
+.new-project-form textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.new-project-form button {
+    margin-top: 10px;
+}

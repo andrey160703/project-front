@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import MyInput from "./UI/MyInput";
 import {AdministratorContext} from "../context";
 import {useNavigate, useParams} from "react-router-dom";
+import NewProjectForm from "./NewProjectForm";
 
 const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
@@ -109,7 +110,42 @@ const ProjectsComponent = () => {
             return projectNames.filter(proj => proj.title.toLowerCase().includes(searchQuery.toLowerCase()))
         }
         return projectNames
-    }, [searchQuery])
+    }, [searchQuery, projects])
+
+    const [newProjectTitle, setNewProjectTitle] = useState('');
+    const [newProjectDescription, setNewProjectDescription] = useState('');
+
+    const handleCreateProject = () => {
+        // Check if the title field is empty
+        if (newProjectTitle.trim() === '') {
+            alert('Please enter a project title.');
+            return;
+        }
+
+        // Generate a unique ID for the new project
+        const newProjectId = projects.length + 1;
+
+        // Create a new project object
+        const newProject = {
+            id: newProjectId,
+            title: newProjectTitle,
+            description: newProjectDescription,
+            managers: [],
+            workers: [],
+        };
+
+        // Add the new project to projectNames array
+        setProjectNames([...projectNames, { id: newProjectId, title: newProjectTitle }]);
+
+        // Add the new project to projects array
+        setProjects([...projects, newProject]);
+
+        setNewProjectTitle('')
+        setNewProjectDescription('')
+
+        alert('Project created successfully.');
+    };
+
 
     return (
         <Container>
@@ -234,6 +270,17 @@ const ProjectsComponent = () => {
                                         )}
 
                                     </Tab.Pane>
+                            )}
+                            {isAdministrator && (
+                                <Tab.Pane eventKey={"NewProj"}>
+                                    <NewProjectForm
+                                        newProjectTitle={newProjectTitle}
+                                        newProjectDescription={newProjectDescription}
+                                        setNewProjectTitle={setNewProjectTitle}
+                                        setNewProjectDescription={setNewProjectDescription}
+                                        handleCreateProject={handleCreateProject}
+                                    />
+                                </Tab.Pane>
                             )}
                         </Tab.Content>
                     </Col>
