@@ -26,14 +26,9 @@ const Header = () => {
         console.log(currentPage())
     };
 
-    const goToManagersPage = () => {
-        navigate('/managers');
+    const goToUsersPage = () => {
+        navigate('/users');
     }
-
-    const goToWorkersPage = () => {
-        navigate('/workers'); // используем хук useNavigate для перехода на страницу workers
-    };
-
     const goToProjectsPage = () => {
         navigate('/projects');
     };
@@ -68,18 +63,10 @@ const Header = () => {
                         </Button>
                         {isAdministrator &&
                             <Button
-                                className={"mr-3 border-dark bg-dark " + (currentPage() === "managers" ? "text-glow" : "")}
-                                onClick={goToManagersPage}
+                                className={"mr-3 border-dark bg-dark " + (currentPage() === "users" ? "text-glow" : "")}
+                                onClick={goToUsersPage}
                             >
-                                Managers
-                            </Button>
-                        }
-                        {isAdministrator &&
-                            <Button
-                                className={"mr-3 border-dark bg-dark " + (currentPage() === "workers" ? "text-glow" : "")}
-                                onClick={goToWorkersPage}
-                            >
-                                Workers
+                                Users
                             </Button>
                         }
                     </Nav>

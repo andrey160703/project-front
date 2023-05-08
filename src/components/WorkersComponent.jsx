@@ -44,7 +44,6 @@ const WorkersComponent = () => {
     }, [searchQuery])
 
     const goToProjectsPage = (id) => {
-        console.log("123")
         navigate('/projects/' + id);
     };
 
@@ -53,7 +52,7 @@ const WorkersComponent = () => {
             <MyInput
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search worker"
+                placeholder="Search user"
             />
             <Tab.Container id="left-tabs-example" defaultActiveKey="1">
                 <Row>

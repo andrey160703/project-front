@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Worker.css'
 import Button from 'react-bootstrap/Button';
+import {AdministratorContext} from "../context";
 const Worker = ({callBackDeleteFunction, callBackTaskManagementFunction, workerId, linkedId, role, name, total, completed}) => {
+    const {isAdministrator} = useContext(AdministratorContext)
     return (
         <div className="Worker">
             <div className="Worker-Photo">
@@ -35,7 +37,7 @@ const Worker = ({callBackDeleteFunction, callBackTaskManagementFunction, workerI
             </div>
             <div className="Buttons">
                 <Button onClick={() => callBackTaskManagementFunction(linkedId, workerId)} style={{margin: '5px 10px 0px 0px', width: "100%"}}>Task management</Button>
-                <Button onClick={() => callBackDeleteFunction(linkedId, workerId)} style={{margin: '5px 10px 0px 0px', width: "100%"}}>Delete this worker</Button>
+                {isAdministrator && <Button onClick={() => callBackDeleteFunction(linkedId, workerId)} style={{margin: '5px 10px 0px 0px', width: "100%"}}>Delete this worker</Button>}
             </div>
         </div>
     );

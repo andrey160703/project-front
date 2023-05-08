@@ -12,13 +12,15 @@ const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
     const params = useParams()
     const navigate = useNavigate(); // инициализируем хук useNavigate
+    const [editableProject, setEditableProject] = useState(null);
     const [projectNames, setProjectNames] = useState([  /// todo Get request by all projects(for administrator)/only current manager's projects
-        { id: 1, title: "Project 1" },
-        { id: 2, title: "Project 2" },
-        { id: 3, title: "Hello world project!" }
+        {id: 1, title: "Project 1"},
+        {id: 2, title: "Project 2"},
+        {id: 3, title: "Hello world project!"}
     ])
     const [projects, setProjects] = useState([  /// todo Get request by project id to get project's information
-        { id: 1, title: "Project 1", description: "None", managers: [
+        {
+            id: 1, title: "Project 1", description: "None", managers: [
                 {id: 1, role: "manager", name: "Andrey"}
             ],
             workers: [
@@ -26,7 +28,8 @@ const ProjectsComponent = () => {
                 {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"}
             ]
         },
-        { id: 2, title: "Project 2", description: "None", managers: [
+        {
+            id: 2, title: "Project 2", description: "None", managers: [
                 {id: 1, role: "manager", name: "Andrey"},
                 {id: 2, role: "manager", name: "Semen"}
             ],
@@ -34,7 +37,8 @@ const ProjectsComponent = () => {
                 {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
             ]
         },
-        { id: 3, title: "Hello world project!", description: "None", managers: [
+        {
+            id: 3, title: "Hello world project!", description: "None", managers: [
                 {id: 1, role: "manager", name: "Andrey"}
             ],
             workers: [
@@ -43,29 +47,58 @@ const ProjectsComponent = () => {
         }
     ])
 
+    const updateProject = (projectId, updatedData) => {
+        const updatedProjects = projects.map((project) => {
+            if (project.id === projectId) {
+                return {...project, ...updatedData};
+            }
+            return project;
+        });
+        setProjects(updatedProjects);
+        const updatedProjectsName = projectNames.map((project) => {
+            if (project.id === projectId) {
+                project.title = updatedData.title
+            }
+            return project;
+        });
+        setEditableProject(null);
+    };
+
     const deleteWorker = (projectId, workerId) => {
-        const updatedProjects = projects.map(project => {
+        const updatedProjects = projects.map((project) => {
             if (project.id !== projectId) {
                 return project;
             }
-            const updatedWorkers = project.workers.filter(worker => worker.id !== workerId);
-            return Object.assign({}, project, {workers: updatedWorkers});
+            const updatedWorkers = project.workers.filter(
+                (worker) => worker.id !== workerId
+            );
+            const updatedProject = { ...project, workers: updatedWorkers };
+            if (editableProject && editableProject.id === projectId) {
+                setEditableProject(updatedProject);
+            }
+            return updatedProject;
         });
         setProjects(updatedProjects);
-    }
+    };
 
     const deleteManager = (projectId, managerId) => {
-        const updatedProjects = projects.map(project => {
+        const updatedProjects = projects.map((project) => {
             if (project.id !== projectId) {
                 return project;
             }
-            const updatedManagers = project.managers.filter(manager => manager.id !== managerId);
-            return Object.assign({}, project, {managers: updatedManagers});
+            const updatedManagers = project.managers.filter(
+                (manager) => manager.id !== managerId
+            );
+            const updatedProject = { ...project, managers: updatedManagers };
+            if (editableProject && editableProject.id === projectId) {
+                setEditableProject(updatedProject);
+            }
+            return updatedProject;
         });
         setProjects(updatedProjects);
-    }
+    };
 
-    const goToTaskManagement = (projectId , workerId) => {
+    const goToTaskManagement = (projectId, workerId) => {
         navigate('/tasksmanager/' + projectId + '/' + workerId);
     }
 
@@ -96,7 +129,8 @@ const ProjectsComponent = () => {
                             )}
                             {isAdministrator &&
                                 <Nav.Item>
-                                    <Nav.Link className="btn btn-outline-success" eventKey={"NewProj"}>{"Create new project"}</Nav.Link>
+                                    <Nav.Link className="btn btn-outline-success"
+                                              eventKey={"NewProj"}>{"Create new project"}</Nav.Link>
                                 </Nav.Item>
                             }
                         </Nav>
@@ -104,40 +138,102 @@ const ProjectsComponent = () => {
                     <Col sm={9}>
                         <Tab.Content className="mt-3">
                             {projects.map(proj =>
-                                <Tab.Pane eventKey={proj.id}>
-                                    <h2 className="mt-1 ms-2">
-                                        {proj.title}
-                                    </h2>
-                                    <div className="mt-1 ms-2">
-                                        {proj.description}
-                                    </div>
-                                    <h4 className="mt-1 ms-2">
-                                        Managers:
-                                    </h4>
-                                    {proj.managers.map(manager =>
-                                        <Manager callBackDeleteFunction={deleteManager} managerId={manager.id} projectId={proj.id} role={manager.role} name={manager.name}/>
-                                    )}
-                                    {isAdministrator &&
-                                        <Button variant="light" className="mt-1 ms-2 w-100" style={{borderColor: 'hsl(190, 100%, 50%)', color: 'hsl(190, 100%, 50%)'}}>
-                                            Add new manager
-                                        </Button>
-                                    }
-                                    <h4 className="mt-1 ms-2">
-                                        Workers:
-                                    </h4>
-                                    {proj.workers.map(worker =>
-                                        <Worker callBackDeleteFunction={deleteWorker} callBackTaskManagementFunction={goToTaskManagement} workerId={worker.id} linkedId={proj.id} role={worker.role} name={worker.name} total={worker.total} completed={worker.completed}/>
-                                    )}
+                                    <Tab.Pane eventKey={proj.id}>
+                                        {editableProject && editableProject.id === proj.id ? (
+                                            <>
+                                                <h2 className="mt-1 ms-2">
+                                                    <input
+                                                        type="text"
+                                                        value={editableProject.title}
+                                                        onChange={(e) =>
+                                                            setEditableProject({
+                                                                ...editableProject,
+                                                                title: e.target.value,
+                                                            })
+                                                        }
+                                                    />
+                                                </h2>
+                                                <div className="mt-1 ms-2">
+                                                    <textarea
+                                                        value={editableProject.description}
+                                                        onChange={(e) =>
+                                                            setEditableProject({
+                                                                ...editableProject,
+                                                                description: e.target.value,
+                                                            })
+                                                        }
+                                                    />
+                                                </div>
+                                                <Button
+                                                    className="mt-3 ms-2"
+                                                    onClick={() =>
+                                                        updateProject(editableProject.id, {
+                                                            title: editableProject.title,
+                                                            description: editableProject.description,
+                                                        })
+                                                    }
+                                                >
+                                                    Save changes
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <h2 className="mt-1 ms-2">{proj.title}</h2>
+                                                <div className="mt-1 ms-2">{proj.description}</div>
+                                                <h4 className="mt-1 ms-2">
+                                                    Managers:
+                                                </h4>
+                                                {proj.managers.map(manager =>
+                                                    <Manager callBackDeleteFunction={deleteManager} managerId={manager.id}
+                                                             projectId={proj.id} role={manager.role} name={manager.name}/>
+                                                )}
+                                                {isAdministrator &&
+                                                    <Button variant="light" className="mt-1 ms-2 w-100" style={{
+                                                        borderColor: 'hsl(190, 100%, 50%)',
+                                                        color: 'hsl(190, 100%, 50%)'
+                                                    }}>
+                                                        Add new manager
+                                                    </Button>
+                                                }
+                                                <h4 className="mt-1 ms-2">
+                                                    Workers:
+                                                </h4>
+                                                {proj.workers.map(worker =>
+                                                    <Worker callBackDeleteFunction={deleteWorker}
+                                                            callBackTaskManagementFunction={goToTaskManagement}
+                                                            workerId={worker.id} linkedId={proj.id} role={worker.role}
+                                                            name={worker.name} total={worker.total}
+                                                            completed={worker.completed}/>
+                                                )}
 
-                                    {isAdministrator &&
-                                        <Button className="mt-1 ms-2 w-100" variant="light" style={{borderColor: 'black'}}>
-                                        Add new worker
-                                        </Button>
-                                    }
-                                    <Button className="mt-3 ms-2">
-                                        Save changes
-                                    </Button>
-                                </Tab.Pane>
+                                                {isAdministrator &&
+                                                    <Button className="mt-1 ms-2 w-100" variant="light"
+                                                            style={{borderColor: 'black'}}>
+                                                        Add new worker
+                                                    </Button>
+                                                }
+                                                <Button className="mt-3 ms-2">
+                                                    Save changes
+                                                </Button>
+                                                {isAdministrator && (
+                                                    <Button
+                                                        variant="light"
+                                                        className="mt-3 ms-2"
+                                                        onClick={() =>
+                                                            setEditableProject({
+                                                                id: proj.id,
+                                                                title: proj.title,
+                                                                description: proj.description,
+                                                            })
+                                                        }
+                                                    >
+                                                        Edit project
+                                                    </Button>
+                                                )}
+                                            </>
+                                        )}
+
+                                    </Tab.Pane>
                             )}
                         </Tab.Content>
                     </Col>

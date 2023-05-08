@@ -5,21 +5,21 @@ import Index from "../../pages/Index";
 import Projects from "../../pages/Projects";
 import Workers from "../../pages/Workers";
 import Managers from "../../pages/Managers";
+import Users from "../../pages/Users";
 
 export const administratorPrivateRoutes = [
     {path: '/tasksmanager/:projectId/:workerId', element: <Notes/>},
     {path: '/index', element: <Index/>, exact: true},
     {path: '/projects/:id', element: <Projects/>, exact: true},
-    {path: '/managers', element: <Managers/>, exact: true},
+    {path: '/users', element: <Users/>, exact: true},
     {path: '/workers', element: <Workers/>, exact: true},
     {path: '*', element: <Projects/>},
 ]
 
 export const managerPrivateRoutes = [
-    {path: '/tasks', element: <Notes/>, exact: true},
+    {path: '/tasksmanager/:projectId/:workerId', element: <Notes/>},
     {path: '/index', element: <Index/>, exact: true},
     {path: '/projects', element: <Projects/>, exact: true},
-    {path: '/workers', element: <Workers/>, exact: true},
     {path: '*', element: <Projects/>},
 ]
 
