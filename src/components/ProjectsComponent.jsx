@@ -268,9 +268,6 @@ const ProjectsComponent = () => {
                                                         Add new worker
                                                     </Button>
                                                 }
-                                                <Button className="mt-3 ms-2">
-                                                    Save changes
-                                                </Button>
                                                 {isAdministrator && (
                                                     <Button
                                                         variant="light"

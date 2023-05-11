@@ -5,6 +5,7 @@ import Tab from "react-bootstrap/Tab";
 import Project from "./Project";
 import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router-dom";
+import NewProjectForm from "./NewProjectForm";
 
 const WorkersComponent = () => {
 
@@ -47,6 +48,10 @@ const WorkersComponent = () => {
         navigate('/projects/' + id);
     };
 
+    function createNewUser() {
+
+    }
+
     return (
         <Container>
             <MyInput
@@ -65,7 +70,7 @@ const WorkersComponent = () => {
                             )}
                             <Nav.Item>
                                 <Nav.Link className="btn btn-outline-success"
-                                          eventKey={"NewProj"}>{"Create new user"}</Nav.Link>
+                                          eventKey={"NewUser"}>{"Create new user"}</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>
@@ -90,6 +95,15 @@ const WorkersComponent = () => {
                                     </Button>
                                 </Tab.Pane>
                             )}
+                            <Tab.Pane eventKey={"NewUser"}>
+                                {/*<NewUserForm*/}
+                                {/*    newUserTitle={newUserTitle}*/}
+                                {/*    newUserDescription={newUserDescription}*/}
+                                {/*    setNewUserTitle={setNewUserTitle}*/}
+                                {/*    setNewUserDescription={setNewUserDescription}*/}
+                                {/*    handleCreateProject={handleCreateUser}*/}
+                                {/*/>*/}
+                            </Tab.Pane>
                         </Tab.Content>
                     </Col>
                 </Row>

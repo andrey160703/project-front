@@ -3,10 +3,11 @@ import Task from "./Task";
 import NewNoteButton from "./UI/NewNoteButton";
 import "./TaskList.css";
 import note from "./Task";
-import { useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const TaskList = () => {
     const params = useParams()
+    const navigate = useNavigate();
     const [tasks, setTasks] = useState([ /// todo get request params.projectId params.workerId
         {
             id: 1,
@@ -87,6 +88,10 @@ const TaskList = () => {
         }
     }
 
+    function goToReports(id) {
+        navigate('/report/' + id);
+    }
+
     function toggleShowClosed() {
         setShowClosed(!showClosed);
     }
@@ -118,7 +123,6 @@ const TaskList = () => {
         (task) => showClosed || !task.closed
     );
 
-
     /// todo show worker's information before notes
     return (
         <div className="TaskList">
@@ -148,6 +152,7 @@ const TaskList = () => {
                         post={{id: task.id, title: task.title, text: task.text, createdDate: task.createdDate, closed: task.closed, closedDate: task.closedDate}}
                         callBackDeleteFunction={deleteTask}
                         callBackCloseFunction={closeTask}
+                        callBackMoveFunction={goToReports}
                     />
                 ))}
             </div>

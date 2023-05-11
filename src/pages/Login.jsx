@@ -97,7 +97,7 @@ const Login = () => {
     return (
         <center>
             <div style={{padding: '25px', width: '600px'}}>
-                <h1 align="center">Страница для логина</h1>
+                <h1 align="center">Authorization</h1>
                 <form>
                     {(usedLogin && loginError) && <div style={{textAlign: 'left', color: 'red', margin: '5px 15px 5px 15px'}}>{loginError}</div>}
                     <MyInput
@@ -106,7 +106,7 @@ const Login = () => {
                         value={login}
                         onChange={(args) => loginHandler(args)}
                         type="text"
-                        placeholder="Введите логин"
+                        placeholder="Enter email"
                     />
                     {(usedPassword && passwordError) ? <div style={{textAlign: 'left', color: 'red', margin: '5px 15px 5px 15px'}}>{passwordError}</div> : <div></div>}
                     <MyInput
@@ -115,10 +115,10 @@ const Login = () => {
                         value={password}
                         onChange={(args) => passwordHandler(args)}
                         type="password"
-                        placeholder="Введите пароль"
+                        placeholder="Enter password"
                     />
                     {(authError) && <div style={{textAlign: 'left', color: 'red', margin: '5px 15px 5px 15px'}}>{authError}</div>}
-                    <MyButton disabled={!validForm} onClick={auth}>Войти</MyButton>
+                    <MyButton disabled={!validForm} onClick={auth}>Enter</MyButton>
                 </form>
             </div>
         </center>

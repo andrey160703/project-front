@@ -1,3 +1,9 @@
 .text-glow {
     text-shadow: 0 0 10px rgba(255,255,255,0.7);
 }
+
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}

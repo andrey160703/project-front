@@ -22,9 +22,8 @@ const RouterWrapper = () => {
         return createBrowserRouter(publicRoutes);
     }, [isAuth]);
 
-    // Проверяем, что значение isAuth уже установлено
     if (isAuth === null) {
-        return null; // или другой компонент загрузки
+        return null;
     }
 
     return (

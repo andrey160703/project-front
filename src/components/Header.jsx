@@ -34,45 +34,47 @@ const Header = () => {
     };
 
     return (
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-            <Container>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="navbar-collapse">
-                        {isAdministrator && (
+        <div className="sticky-header">
+            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+                <Container>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="navbar-collapse">
+                            {isAdministrator && (
+                                <Button
+                                    className="mr-3 border-dark bg-dark text-danger"
+                                    onClick={handleButtonClick}
+                                >
+                                    {globalLogin}
+                                </Button>
+                            )}
+                            {!isAdministrator && (
+                                <Button
+                                    className="mr-3 border-dark bg-dark text-info"
+                                    onClick={handleButtonClick}
+                                >
+                                    {globalLogin}
+                                </Button>
+                            )}
                             <Button
-                                className="mr-3 border-dark bg-dark text-danger"
-                                onClick={handleButtonClick}
+                                className={"mr-3 border-dark bg-dark " + (currentPage() === "projects" ? "text-glow" : "")}
+                                onClick={goToProjectsPage}
                             >
-                                {globalLogin}
+                                Projects
                             </Button>
-                        )}
-                        {!isAdministrator && (
-                            <Button
-                                className="mr-3 border-dark bg-dark text-info"
-                                onClick={handleButtonClick}
-                            >
-                                {globalLogin}
-                            </Button>
-                        )}
-                        <Button
-                            className={"mr-3 border-dark bg-dark " + (currentPage() === "projects" ? "text-glow" : "")}
-                            onClick={goToProjectsPage}
-                        >
-                            Projects
-                        </Button>
-                        {isAdministrator &&
-                            <Button
-                                className={"mr-3 border-dark bg-dark " + (currentPage() === "users" ? "text-glow" : "")}
-                                onClick={goToUsersPage}
-                            >
-                                Users
-                            </Button>
-                        }
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                            {isAdministrator &&
+                                <Button
+                                    className={"mr-3 border-dark bg-dark " + (currentPage() === "users" ? "text-glow" : "")}
+                                    onClick={goToUsersPage}
+                                >
+                                    Users
+                                </Button>
+                            }
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </div>
     );
 };
 

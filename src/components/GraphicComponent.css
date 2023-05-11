@@ -1,0 +1,65 @@
+.graphic-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.control-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+}
+
+.control-container .form-group {
+    margin-bottom: 10px;
+}
+
+.control-container label {
+    display: block;
+}
+
+.chart-container {
+    flex-grow: 1;
+}
+
+.select-container {
+    margin-bottom: 10px;
+}
+
+.select-container label {
+    font-weight: bold;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.date-container {
+    margin-bottom: 10px;
+}
+
+.date-container label {
+    font-weight: bold;
+    display: block;
+}
+
+.date-container input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+    width: 100%;
+}
+
+.date-container input[type="date"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px #c0c0c0;
+}
