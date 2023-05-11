@@ -3,7 +3,7 @@ import './Manager.css'
 import Button from 'react-bootstrap/Button';
 import {AdministratorContext} from "../context";
 const Manager = ({callBackDeleteFunction, projectId, managerId, name, role}) => {
-    const {isAdministrator, setIsAdministrator} = useContext(AdministratorContext)
+    const {isAdministrator} = useContext(AdministratorContext)
     return (
         <div className="Manager">
             <div className="Photo">

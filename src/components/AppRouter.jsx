@@ -5,8 +5,6 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import Login from "../pages/Login";
-import NoteList from "./NoteList";
 import {AuthContext, AdministratorContext} from "../context";
 
 

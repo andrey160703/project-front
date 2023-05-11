@@ -8,6 +8,7 @@ import MyInput from "./UI/MyInput";
 import {AdministratorContext} from "../context";
 import {useNavigate, useParams} from "react-router-dom";
 import NewProjectForm from "./NewProjectForm";
+import GraphicComponent from "./GraphicComponent";
 
 const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
@@ -26,7 +27,15 @@ const ProjectsComponent = () => {
             ],
             workers: [
                 {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
-                {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"}
+                {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"},
+                {id: 5, role: "worker", name: "Semen", total: "10", completed: "3"},
+                {id: 5, role: "worker", name: "Grisha", total: "10", completed: "8"}
+            ],
+            graphicData: [
+                { name: 'Ivan', tasks: 5, hours: 80 },
+                { name: 'Artur', tasks: 5, hours: 140 },
+                { name: 'Semen', tasks: 3, hours: 30 },
+                { name: 'Grisha', tasks: 8, hours: 100 },
             ]
         },
         {
@@ -36,6 +45,9 @@ const ProjectsComponent = () => {
             ],
             workers: [
                 {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
+            ],
+            graphicData: [
+                { name: 'Ivan', tasks: 5, hours: 80 },
             ]
         },
         {
@@ -44,6 +56,9 @@ const ProjectsComponent = () => {
             ],
             workers: [
                 {id: 3, role: "worker", name: "Hello world worker", total: "10", completed: "5"}
+            ],
+            graphicData: [
+                { name: 'Hello world worker', tasks: 5, hours: 300 },
             ]
         }
     ])
@@ -132,6 +147,7 @@ const ProjectsComponent = () => {
             description: newProjectDescription,
             managers: [],
             workers: [],
+            graphicData: []
         };
 
         // Add the new project to projectNames array
@@ -145,7 +161,6 @@ const ProjectsComponent = () => {
 
         alert('Project created successfully.');
     };
-
 
     return (
         <Container>
@@ -216,6 +231,11 @@ const ProjectsComponent = () => {
                                             <>
                                                 <h2 className="mt-1 ms-2">{proj.title}</h2>
                                                 <div className="mt-1 ms-2">{proj.description}</div>
+                                                <h4 className="mt-1 ms-2">
+                                                    Graphic:
+                                                </h4>
+                                                <GraphicComponent data={proj.graphicData}/>
+
                                                 <h4 className="mt-1 ms-2">
                                                     Managers:
                                                 </h4>

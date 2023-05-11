@@ -10,13 +10,13 @@ const WorkersComponent = () => {
 
     const navigate = useNavigate(); // инициализируем хук useNavigate
 
-    const [workersList, setWorkersList] = useState([  /// todo Get request by all workers
+    const [usersList, setUsersList] = useState([  /// todo Get request by all users
         {id: 1, name: "Andrey"},
         {id: 2, name: "Semen"},
         {id: 3, name: "Ilya"}
     ])
 
-    const [projectList, setProjectList] = useState([  /// todo Get request by worker id to get his projects
+    const [projectList, setProjectList] = useState([  /// todo Get request by user id to get his projects
         {
             id: 1, projects: [
                 {id: 1, title: "Project 1", description: "None"},
@@ -38,9 +38,9 @@ const WorkersComponent = () => {
 
     const selectedList = useMemo(() => {
         if (searchQuery) {
-            return workersList.filter(manager => manager.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            return usersList.filter(user => user.name.toLowerCase().includes(searchQuery.toLowerCase()))
         }
-        return workersList
+        return usersList
     }, [searchQuery])
 
     const goToProjectsPage = (id) => {
@@ -58,29 +58,29 @@ const WorkersComponent = () => {
                 <Row>
                     <Col sm={3}>
                         <Nav variant="pills" className="flex-column mt-2">
-                            {selectedList.map(worker =>
+                            {selectedList.map(user =>
                                 <Nav.Item>
-                                    <Nav.Link eventKey={worker.id}>{worker.name}</Nav.Link>
+                                    <Nav.Link eventKey={user.id}>{user.name}</Nav.Link>
                                 </Nav.Item>
                             )}
                             <Nav.Item>
                                 <Nav.Link className="btn btn-outline-success"
-                                          eventKey={"NewProj"}>{"Create new manager"}</Nav.Link>
+                                          eventKey={"NewProj"}>{"Create new user"}</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>
                     <Col sm={9}>
                         <Tab.Content className="mt-3">
-                            {projectList.map(worker => // todo GET request
-                                <Tab.Pane eventKey={worker.id}>
+                            {projectList.map(user => // todo GET request
+                                <Tab.Pane eventKey={user.id}>
                                     <h4 className="mt-1 ms-2">
                                         Projects:
                                     </h4>
-                                    {worker.projects.map(proj =>
+                                    {user.projects.map(proj =>
                                         <Project
                                             callBackFunction={goToProjectsPage}
                                             projectId={proj.id}
-                                            linkedId={worker.id}
+                                            linkedId={user.id}
                                             title={proj.title}
                                             description={proj.description}
                                         />

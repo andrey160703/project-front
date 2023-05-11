@@ -1,17 +1,17 @@
-/*.NoteList {*/
+/*.TaskList {*/
 /*    width: 100%;*/
 /*    background-color: white;*/
 /*    display: flex;*/
 /*}*/
 
-.NoteList {
+.TaskList {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px 0;
 }
 
-.NoteList-header {
+.TaskList-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,12 +22,12 @@
     border-radius: 10px;
 }
 
-.NoteList-header h2 {
+.TaskList-header h2 {
     font-size: 28px;
     margin: 0;
 }
 
-.NoteList-items {
+.TaskList-items {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,15 +37,15 @@
 }
 
 @media (min-width: 768px) {
-    .NoteList {
+    .TaskList {
         margin: 40px 0;
     }
 
-    .NoteList-header h2 {
+    .TaskList-header h2 {
         font-size: 32px;
     }
 
-    .NoteList-items {
+    .TaskList-items {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;

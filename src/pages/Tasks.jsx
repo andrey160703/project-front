@@ -1,14 +1,14 @@
 import React from 'react';
-import NoteList from "../components/NoteList";
+import TaskList from "../components/./TaskList";
 import Header from "../components/Header";
 
-const Notes = () => {
+const Tasks = () => {
     return (
         <div>
             <Header/>
-            <NoteList/>
+            <TaskList/>
         </div>
     );
 };
 
-export default Notes;
+export default Tasks;

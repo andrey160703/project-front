@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Note from "./Note";
+import Task from "./Task";
 import NewNoteButton from "./UI/NewNoteButton";
-import "./NoteList.css";
-import note from "./Note";
+import "./TaskList.css";
+import note from "./Task";
 import { useParams} from "react-router-dom";
 
-const NoteList = () => {
+const TaskList = () => {
     const params = useParams()
-    const [notes, setNotes] = useState([ /// todo get request params.projectId params.workerId
+    const [tasks, setTasks] = useState([ /// todo get request params.projectId params.workerId
         {
             id: 1,
             title: "Test note 1",
@@ -50,15 +50,15 @@ const NoteList = () => {
         },
     ]);
 
-    const [currentNotes, setCurrentNotes] = useState(notes)
+    const [currentTasks, setCurrentTasks] = useState(tasks)
     const [showClosed, setShowClosed] = useState(false);
     const [sortBy, setSortBy] = useState("newest");
 
     useEffect(() => {
-        sortNotes();
-    }, [notes, showClosed, sortBy]);
+        sortTasks();
+    }, [tasks, showClosed, sortBy]);
 
-    function createNewNote() {
+    function createNewTask() {
         const newNote = {
             id: Date.now(),
             title: "",
@@ -67,20 +67,20 @@ const NoteList = () => {
             closed: false,
             closedDate: null,
         };
-        setNotes([...notes, newNote]);
+        setTasks([...tasks, newNote]);
     }
 
-    function deleteNote(post) {
-        setNotes(notes.filter((n) => n.id !== post.id));
+    function deleteTask(post) {
+        setTasks(tasks.filter((n) => n.id !== post.id));
     }
 
-    function closeNote(id) {
+    function closeTask(id) {
         let i = 0;
-        while (i < notes.length) {
-            if (notes.at(i).id === id) {
-                notes.at(i).closedDate = new Date();
-                console.log(notes.at(i).closedDate)
-                notes.at(i).closed = true;
+        while (i < tasks.length) {
+            if (tasks.at(i).id === id) {
+                tasks.at(i).closedDate = new Date();
+                console.log(tasks.at(i).closedDate)
+                tasks.at(i).closed = true;
                 break;
             }
             i++;
@@ -91,42 +91,42 @@ const NoteList = () => {
         setShowClosed(!showClosed);
     }
 
-    function sortNotes() {
-        let sortedNotes = notes.slice();
+    function sortTasks() {
+        let sortedTasks = tasks.slice();
         if (!showClosed) {
-            sortedNotes = sortedNotes.filter((n) => !n.closed);
+            sortedTasks = sortedTasks.filter((n) => !n.closed);
         }
 
         if (sortBy === "newest") {
-            sortedNotes = sortedNotes.sort((a, b) => b.createdDate - a.createdDate);
+            sortedTasks = sortedTasks.sort((a, b) => b.createdDate - a.createdDate);
         } else if (sortBy === "oldest") {
-            sortedNotes = sortedNotes.sort((a, b) => a.createdDate - b.createdDate);
+            sortedTasks = sortedTasks.sort((a, b) => a.createdDate - b.createdDate);
         } else if (sortBy === "openFirst") {
-            sortedNotes = sortedNotes.sort((a, b) => a.closed - b.closed);
+            sortedTasks = sortedTasks.sort((a, b) => a.closed - b.closed);
         } else if (sortBy === "closedFirst") {
-            sortedNotes = sortedNotes.sort((a, b) => b.closed - a.closed);
+            sortedTasks = sortedTasks.sort((a, b) => b.closed - a.closed);
         }
 
-        setCurrentNotes(sortedNotes);
+        setCurrentTasks(sortedTasks);
     }
 
     function handleSortChange(event) {
         setSortBy(event.target.value);
     }
 
-    const filteredNotes = currentNotes.filter(
-        (note) => showClosed || !note.closed
+    const filteredTasks = currentTasks.filter(
+        (task) => showClosed || !task.closed
     );
 
 
     /// todo show worker's information before notes
     return (
-        <div className="NoteList">
-            <div className="NoteList-header">
+        <div className="TaskList">
+            <div className="TaskList-header">
                 <h2>Notes</h2>
-                <NewNoteButton onClick={createNewNote}>Create new note</NewNoteButton>
-                <div className="NoteList-header-filters">
-                    <div className="NoteList-header-filters-sort">
+                <NewNoteButton onClick={createNewTask}>Create new note</NewNoteButton>
+                <div className="TaskList-header-filters">
+                    <div className="TaskList-header-filters-sort">
                         <span>Sort by:</span>
                         <select onChange={handleSortChange}>
                             <option value="newest">Date created: newest first</option>
@@ -135,23 +135,23 @@ const NoteList = () => {
                             <option value="closedFirst">Closed notes first</option>
                         </select>
                     </div>
-                    <div className="NoteList-header-filters-toggle">
+                    <div className="TaskList-header-filters-toggle">
                         <label>Show closed notes:</label>
                         <input type="checkbox" onChange={toggleShowClosed} checked={showClosed}/>
                     </div>
                 </div>
             </div>
-            <div className="NoteList-items">
-                {filteredNotes.map((note) => (
-                    <Note
-                        key={note.id}
-                        post={{id: note.id, title: note.title, text: note.text, createdDate: note.createdDate, closed: note.closed, closedDate: note.closedDate}}
-                        callBackDeleteFunction={deleteNote}
-                        callBackCloseFunction={closeNote}
+            <div className="TaskList-items">
+                {filteredTasks.map((task) => (
+                    <Task
+                        key={task.id}
+                        post={{id: task.id, title: task.title, text: task.text, createdDate: task.createdDate, closed: task.closed, closedDate: task.closedDate}}
+                        callBackDeleteFunction={deleteTask}
+                        callBackCloseFunction={closeTask}
                     />
                 ))}
             </div>
         </div>
     );
 }
-export default NoteList;
+export default TaskList;

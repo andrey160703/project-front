@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Note.css';
+import './Task.css';
 
-const Note = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
+const Task = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
     const [title, changeTittleFunc] = useState(props.post.title);
     const [text, changeTextFunc] = useState(props.post.text);
     const [closed, setClosed] = useState(props.post.closed);
@@ -21,51 +21,51 @@ const Note = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
         changeTextFunc(event.target.value);
     }
 
-    function closeNote() {
+    function closeTask() {
         setClosed(true);
         setClosedDate(new Date());
         callBackCloseFunction(props.post.id)
     }
 
     return (
-        <div className={`Note ${closed ? 'Note--closed' : ''}`}>
-            <div className="NoteWorkSpace">
+        <div className={`Task ${closed ? 'Task--closed' : ''}`}>
+            <div className="TaskWorkSpace">
                 {isEditing ? (
                     <>
                         <input
-                            className="NoteWorkSpaceHeading"
+                            className="TaskWorkSpaceHeading"
                             placeholder="Title"
                             value={title}
                             onChange={changeHeadingData}
                         />
                         <textarea
-                            className="NoteWorkSpaceText"
-                            placeholder="Note text"
+                            className="TaskWorkSpaceText"
+                            placeholder="Task text"
                             value={text}
                             onChange={changeTextData}
                         />
-                        <button className="NoteButton" onClick={saveFunction}>Save</button>
+                        <button className="TaskButton" onClick={saveFunction}>Save</button>
                     </>
                 ) : (
                     <>
-                        <h3 className="NoteWorkSpaceHeading">{title}</h3>
-                        <p className="NoteWorkSpaceText">{text}</p>
+                        <h3 className="TaskWorkSpaceHeading">{title}</h3>
+                        <p className="TaskWorkSpaceText">{text}</p>
                         {closed ? (
                             <>
-                                <div className="NoteClosedDate">
-                                    <span className="NoteDate">Created on {props.post.createdDate.toLocaleDateString()}</span>
+                                <div className="TaskClosedDate">
+                                    <span className="TaskDate">Created on {props.post.createdDate.toLocaleDateString()}</span>
                                 </div>
                                 <div>
-                                    <span className="NoteDate">Closed on {closedDate.toLocaleDateString()}</span>
+                                    <span className="TaskDate">Closed on {closedDate.toLocaleDateString()}</span>
                                 </div>
                             </>
                         ) : (
-                            <div className="NoteFooter">
-                                <div className="NoteDate">Created on {props.post.createdDate.toLocaleDateString()}</div>
-                                <button className="NoteButton" onClick={() => setIsEditing(true)}>Edit note</button>
-                                <button className="NoteButton">View report</button>
-                                <button className="NoteButton CloseButton" onClick={closeNote}>Close note</button>
-                                <button className="NoteButton DeleteButton" onClick={() => callBackDeleteFunction(props.post)}>Delete note</button>
+                            <div className="TaskFooter">
+                                <div className="TaskDate">Created on {props.post.createdDate.toLocaleDateString()}</div>
+                                <button className="TaskButton" onClick={() => setIsEditing(true)}>Edit task</button>
+                                <button className="TaskButton">View report</button>
+                                <button className="TaskButton CloseButton" onClick={closeTask}>Close task</button>
+                                <button className="TaskButton DeleteButton" onClick={() => callBackDeleteFunction(props.post)}>Delete Task</button>
                             </div>
                         )}
                     </>
@@ -75,4 +75,4 @@ const Note = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
     );
 };
 
-export default Note;
+export default Task;

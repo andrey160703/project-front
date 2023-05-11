@@ -1,24 +1,25 @@
 import Login from "../../pages/Login";
 import React from "react";
-import Notes from "../../pages/Notes";
+import Tasks from "../../pages/Tasks";
 import Index from "../../pages/Index";
 import Projects from "../../pages/Projects";
 import Workers from "../../pages/Workers";
 import Managers from "../../pages/Managers";
 import Users from "../../pages/Users";
+import Report from "../../pages/Report";
 
 export const administratorPrivateRoutes = [
-    {path: '/tasksmanager/:projectId/:workerId', element: <Notes/>},
-    {path: '/index', element: <Index/>, exact: true},
+    {path: '/tasksmanager/:projectId/:workerId', element: <Tasks/>},
     {path: '/projects/:id', element: <Projects/>, exact: true},
     {path: '/users', element: <Users/>, exact: true},
     {path: '/workers', element: <Workers/>, exact: true},
+    {path: '/report/:reportId', element: <Report/>},
     {path: '*', element: <Projects/>},
 ]
 
 export const managerPrivateRoutes = [
-    {path: '/tasksmanager/:projectId/:workerId', element: <Notes/>},
-    {path: '/index', element: <Index/>, exact: true},
+    {path: '/tasksmanager/:projectId/:workerId', element: <Tasks/>},
+    {path: '/report/:reportId', element: <Report/>},
     {path: '/projects', element: <Projects/>, exact: true},
     {path: '*', element: <Projects/>},
 ]
