@@ -1,0 +1,28 @@
+.new-user-form {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.new-user-form h2 {
+    margin-top: 0;
+}
+
+.new-user-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.new-user-form input,
+.new-user-form textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.new-user-form button {
+    margin-top: 10px;
+}

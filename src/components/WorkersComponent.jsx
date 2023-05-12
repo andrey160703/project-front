@@ -6,6 +6,7 @@ import Project from "./Project";
 import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router-dom";
 import NewProjectForm from "./NewProjectForm";
+import NewUserForm from "./NewUserForm";
 
 const WorkersComponent = () => {
 
@@ -19,19 +20,19 @@ const WorkersComponent = () => {
 
     const [projectList, setProjectList] = useState([  /// todo Get request by user id to get his projects
         {
-            id: 1, projects: [
+            id: 1, name: "Andrey", login: "andrey101010", email: "avgusev_6@edu.hse.ru", projects: [
                 {id: 1, title: "Project 1", description: "None"},
                 {id: 2, title: "Project 2", description: "None"},
                 {id: 3, title: "Hello world project!", description: "None"}
             ],
         },
         {
-            id: 2, projects: [
+            id: 2, name: "Semen", login: "Semen12312", email: "prosemen@mail.ru", projects: [
                 {id: 2, title: "Project 2", description: "None"}
             ]
         },
         {
-            id: 3, projects:[]
+            id: 3, name: "Ilya", login: "Ilyyyya", email: "superIlyaKU2222@mail.ru", projects:[]
         }
     ])
 
@@ -42,15 +43,28 @@ const WorkersComponent = () => {
             return usersList.filter(user => user.name.toLowerCase().includes(searchQuery.toLowerCase()))
         }
         return usersList
-    }, [searchQuery])
+    }, [searchQuery, projectList])
 
     const goToProjectsPage = (id) => {
         navigate('/projects/' + id);
     };
 
-    function createNewUser() {
-
-    }
+    const handleCreateUser = (userData) => {
+        console.log(userData)
+        const newUser = {
+            id: userData.user_id,
+            name: userData.fullName,
+        };
+        const newProj = {
+            id: userData.user_id,
+            name: userData.fullName,
+            login: userData.login,
+            mail: userData.email,
+            projects: []
+        }
+        setUsersList([...usersList, newUser]);
+        setProjectList([...projectList, newProj]);
+    };
 
     return (
         <Container>
@@ -76,8 +90,17 @@ const WorkersComponent = () => {
                     </Col>
                     <Col sm={9}>
                         <Tab.Content className="mt-3">
-                            {projectList.map(user => // todo GET request
+                            {projectList.map(user => ( /// todo Get request by user id to get his projects
                                 <Tab.Pane eventKey={user.id}>
+                                    <h4 className="mt-1 ms-2">
+                                        {user.name}
+                                    </h4>
+                                    <p className="ms-2">
+                                        Login: {user.login}
+                                    </p>
+                                    <p className="ms-2">
+                                        Email: {user.email}
+                                    </p>
                                     <h4 className="mt-1 ms-2">
                                         Projects:
                                     </h4>
@@ -94,15 +117,10 @@ const WorkersComponent = () => {
                                         Save changes
                                     </Button>
                                 </Tab.Pane>
-                            )}
-                            <Tab.Pane eventKey={"NewUser"}>
-                                {/*<NewUserForm*/}
-                                {/*    newUserTitle={newUserTitle}*/}
-                                {/*    newUserDescription={newUserDescription}*/}
-                                {/*    setNewUserTitle={setNewUserTitle}*/}
-                                {/*    setNewUserDescription={setNewUserDescription}*/}
-                                {/*    handleCreateProject={handleCreateUser}*/}
-                                {/*/>*/}
+                            ))}
+
+                            <Tab.Pane eventKey="NewUser">
+                                <NewUserForm handleCreateUser={handleCreateUser} />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
