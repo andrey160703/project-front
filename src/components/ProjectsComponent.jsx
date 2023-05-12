@@ -5,7 +5,7 @@ import Worker from "./Worker";
 import Manager from "./Manager";
 import Button from "react-bootstrap/Button";
 import MyInput from "./UI/MyInput";
-import {AdministratorContext} from "../context";
+import {AdministratorContext, UsersContext} from "../context";
 import {useNavigate, useParams} from "react-router-dom";
 import NewProjectForm from "./NewProjectForm";
 import GraphicComponent from "./GraphicComponent";
@@ -13,6 +13,7 @@ import NewMemberForm from "./NewMemberForm";
 
 const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
+    const { allUsers } = useContext(UsersContext);
     const params = useParams()
     const navigate = useNavigate(); // инициализируем хук useNavigate
     const [editableProject, setEditableProject] = useState(null);
@@ -180,18 +181,25 @@ const ProjectsComponent = () => {
     };
 
     const addNewManager = (data) => {
-        if (!data) {
-            setShowForm(!showForm);
+        if (data) {
+            const { projId: projectId } = data;
+            const newManager = { id: data.userId, role: "manager", name: data.name };
+            console.log(newManager);
+            const updatedProjects = projects.map((project) => {
+                if (project.id !== projectId) {
+                    return project;
+                }
+                const updatedManagers = [...project.managers, newManager]
+                const updatedProject = { ...project, managers: updatedManagers };
+                return updatedProject;
+            });
+            setProjects(updatedProjects)
         }
+        setShowForm(!showForm);
     };
 
     const [showForm, setShowForm] = useState(false);
 
-
-    const handleProjectSelect = (projectId) => {
-        setSelectedProjectId(projectId);
-        setShowNewMemberForm(false);
-    };
 
     return (
         <Container>
@@ -301,7 +309,7 @@ const ProjectsComponent = () => {
                                                         {showForm && (
                                                             <div className="form-overlay">
                                                                 <div className="form-container">
-                                                                    <NewMemberForm projectUsers={proj.workers} onMemberAdded={addNewManager} cancelCallBackFunction={addNewManager}/>
+                                                                    <NewMemberForm projectUsers={proj.workers} projectId={proj.id} onMemberAdded={addNewManager} cancelCallBackFunction={addNewManager}/>
                                                                 </div>
                                                             </div>
                                                         )}

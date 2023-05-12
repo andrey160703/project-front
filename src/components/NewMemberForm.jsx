@@ -3,7 +3,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { UsersContext } from "../context";
 import './NewMemberForm.css';
 
-const NewMemberForm = ({ projectUsers, onMemberAdded, cancelCallBackFunction }) => {
+const NewMemberForm = ({ projectId, projectUsers, onMemberAdded, cancelCallBackFunction }) => {
     const { allUsers } = useContext(UsersContext);
     const [selectedUser, setSelectedUser] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
@@ -17,11 +17,35 @@ const NewMemberForm = ({ projectUsers, onMemberAdded, cancelCallBackFunction }) 
         setSelectedUser(userId);
     };
 
+    const getUserInfo = (userId) => {
+        const user = filteredUsers.find((user) => user.id === userId);
+        if (user) {
+            return {
+                name: user.name,
+                login: user.login,
+                email: user.email
+            };
+        }
+        return null;
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (selectedUser !== '') {
-            onMemberAdded(selectedUser);
-            setSelectedUser('');
+            const userInfo = getUserInfo(selectedUser);
+            if (userInfo) {
+                const newUser = {
+                    projId: projectId,
+                    userId: selectedUser,
+                    name: userInfo.name,
+                    login: userInfo.login,
+                    email: userInfo.email
+                };
+                onMemberAdded(newUser);
+                setSelectedUser('');
+            } else {
+                console.log('User not found');
+            }
         }
     };
 
