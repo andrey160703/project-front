@@ -9,6 +9,7 @@ import {AdministratorContext} from "../context";
 import {useNavigate, useParams} from "react-router-dom";
 import NewProjectForm from "./NewProjectForm";
 import GraphicComponent from "./GraphicComponent";
+import NewMemberForm from "./NewMemberForm";
 
 const ProjectsComponent = () => {
     const {isAdministrator} = useContext(AdministratorContext)
@@ -29,7 +30,7 @@ const ProjectsComponent = () => {
                 {id: 1, role: "worker", name: "Ivan", total: "10", completed: "5"},
                 {id: 2, role: "worker", name: "Artur", total: "10", completed: "5"},
                 {id: 5, role: "worker", name: "Semen", total: "10", completed: "3"},
-                {id: 5, role: "worker", name: "Grisha", total: "10", completed: "8"}
+                {id: 6, role: "worker", name: "Grisha", total: "10", completed: "8"}
             ],
             graphicData: [
                 { name: 'Ivan', tasks: 5, hours: 80 },
@@ -162,6 +163,36 @@ const ProjectsComponent = () => {
         alert('Project created successfully.');
     };
 
+    const [selectedProjectId, setSelectedProjectId] = useState('');
+    const [showNewMemberForm, setShowNewMemberForm] = useState(false);
+
+    const handleMemberAdded = () => {
+        setShowNewMemberForm(false);
+    };
+
+    const handleAddWorker = () => {
+        setSelectedProjectId('');
+        setShowNewMemberForm(true);
+    };
+
+    const handleAddManager = () => {
+        setShowForm(!showForm);
+    };
+
+    const addNewManager = (data) => {
+        if (!data) {
+            setShowForm(!showForm);
+        }
+    };
+
+    const [showForm, setShowForm] = useState(false);
+
+
+    const handleProjectSelect = (projectId) => {
+        setSelectedProjectId(projectId);
+        setShowNewMemberForm(false);
+    };
+
     return (
         <Container>
             <MyInput
@@ -255,12 +286,26 @@ const ProjectsComponent = () => {
                                                              projectId={proj.id} role={manager.role} name={manager.name}/>
                                                 )}
                                                 {isAdministrator &&
-                                                    <Button variant="light" className="mt-1 ms-2 w-100" style={{
-                                                        borderColor: 'hsl(190, 100%, 50%)',
-                                                        color: 'hsl(190, 100%, 50%)'
-                                                    }}>
+                                                    <>
+                                                    <Button
+                                                        variant="light"
+                                                        className="mt-1 ms-2 w-100"
+                                                        style={{
+                                                            borderColor: 'hsl(190, 100%, 50%)',
+                                                            color: 'hsl(190, 100%, 50%)',
+                                                        }}
+                                                        onClick={handleAddManager}
+                                                    >
                                                         Add new manager
                                                     </Button>
+                                                        {showForm && (
+                                                            <div className="form-overlay">
+                                                                <div className="form-container">
+                                                                    <NewMemberForm projectUsers={proj.workers} onMemberAdded={addNewManager} cancelCallBackFunction={addNewManager}/>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </>
                                                 }
                                                 <h4 className="mt-1 ms-2">
                                                     Workers:
@@ -274,8 +319,12 @@ const ProjectsComponent = () => {
                                                 )}
 
                                                 {isAdministrator &&
-                                                    <Button className="mt-1 ms-2 w-100" variant="light"
-                                                            style={{borderColor: 'black'}}>
+                                                    <Button
+                                                        className="mt-1 ms-2 w-100"
+                                                        variant="light"
+                                                        style={{ borderColor: 'black' }}
+                                                        onClick={handleAddWorker}
+                                                    >
                                                         Add new worker
                                                     </Button>
                                                 }
