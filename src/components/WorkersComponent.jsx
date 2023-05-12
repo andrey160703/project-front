@@ -104,7 +104,7 @@ const WorkersComponent = () => {
                                     <h4 className="mt-1 ms-2">
                                         Projects:
                                     </h4>
-                                    {user.projects.map(proj =>
+                                    {user.projects && user.projects.map(proj =>
                                         <Project
                                             callBackFunction={goToProjectsPage}
                                             projectId={proj.id}
@@ -113,9 +113,11 @@ const WorkersComponent = () => {
                                             description={proj.description}
                                         />
                                     )}
-                                    <Button className="mt-3 ms-2">
-                                        Save changes
-                                    </Button>
+                                    {!user.projects.length &&
+                                        <div className="mt-1 ms-2">
+                                            User does not have any projects yet
+                                        </div>
+                                    }
                                 </Tab.Pane>
                             ))}
 
