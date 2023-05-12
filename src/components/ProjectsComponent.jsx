@@ -231,11 +231,22 @@ const ProjectsComponent = () => {
                                             <>
                                                 <h2 className="mt-1 ms-2">{proj.title}</h2>
                                                 <div className="mt-1 ms-2">{proj.description}</div>
-                                                <h4 className="mt-1 ms-2">
-                                                    Graphic:
-                                                </h4>
+                                                {isAdministrator && (
+                                                    <Button
+                                                        variant="light"
+                                                        className="mt-3 ms-2"
+                                                        onClick={() =>
+                                                            setEditableProject({
+                                                                id: proj.id,
+                                                                title: proj.title,
+                                                                description: proj.description,
+                                                            })
+                                                        }
+                                                    >
+                                                        Edit project
+                                                    </Button>
+                                                )}
                                                 <GraphicComponent data={proj.graphicData}/>
-
                                                 <h4 className="mt-1 ms-2">
                                                     Managers:
                                                 </h4>
@@ -268,21 +279,6 @@ const ProjectsComponent = () => {
                                                         Add new worker
                                                     </Button>
                                                 }
-                                                {isAdministrator && (
-                                                    <Button
-                                                        variant="light"
-                                                        className="mt-3 ms-2"
-                                                        onClick={() =>
-                                                            setEditableProject({
-                                                                id: proj.id,
-                                                                title: proj.title,
-                                                                description: proj.description,
-                                                            })
-                                                        }
-                                                    >
-                                                        Edit project
-                                                    </Button>
-                                                )}
                                             </>
                                         )}
 
