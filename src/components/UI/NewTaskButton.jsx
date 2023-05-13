@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './NewNoteButtom.module.css'
 
-const NewNoteButton = ({children, ...props}) => {
+const NewTaskButton = ({children, ...props}) => {
     return (
         <button {...props} className={classes.myBtn}>
             {children}
@@ -9,4 +9,4 @@ const NewNoteButton = ({children, ...props}) => {
     );
 };
 
-export default NewNoteButton;
+export default NewTaskButton;

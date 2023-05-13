@@ -164,20 +164,12 @@ const ProjectsComponent = () => {
         alert('Project created successfully.');
     };
 
-    const [selectedProjectId, setSelectedProjectId] = useState('');
-    const [showNewMemberForm, setShowNewMemberForm] = useState(false);
-
-    const handleMemberAdded = () => {
-        setShowNewMemberForm(false);
-    };
-
     const handleAddWorker = () => {
-        setSelectedProjectId('');
-        setShowNewMemberForm(true);
+        setShowAddWorkerForm(!showAddManagerForm);
     };
 
     const handleAddManager = () => {
-        setShowForm(!showForm);
+        setShowAddManagerForm(!showAddManagerForm);
     };
 
     const addNewManager = (data) => {
@@ -195,10 +187,38 @@ const ProjectsComponent = () => {
             });
             setProjects(updatedProjects)
         }
-        setShowForm(!showForm);
+        setShowAddManagerForm(!showAddManagerForm);
     };
 
-    const [showForm, setShowForm] = useState(false);
+
+    const addNewWorker = (data) => {
+        if (data) {
+            const { projId: projectId } = data;
+            const newWorker = { id: data.userId, role: "worker", name: data.name };
+            console.log(newWorker);
+            const updatedProjects = projects.map((project) => {
+                if (project.id !== projectId) {
+                    return project;
+                }
+                const updatedWorkers = [...project.workers, newWorker]
+
+                const newGraphicData = {
+                    name: data.name,
+                    tasks: 0,
+                    hours: 0
+                }
+                const updatedGraphics = [...project.graphicData, newGraphicData]
+
+                const updatedProject = { ...project, workers: updatedWorkers, graphicData: updatedGraphics };
+                return updatedProject;
+            });
+            setProjects(updatedProjects)
+        }
+        setShowAddWorkerForm(!setShowAddWorkerForm);
+    };
+
+    const [showAddManagerForm, setShowAddManagerForm] = useState(false);
+    const [showAddWorkerForm, setShowAddWorkerForm] = useState(false);
 
 
     return (
@@ -306,10 +326,10 @@ const ProjectsComponent = () => {
                                                     >
                                                         Add new manager
                                                     </Button>
-                                                        {showForm && (
+                                                        {showAddManagerForm && (
                                                             <div className="form-overlay">
                                                                 <div className="form-container">
-                                                                    <NewMemberForm projectUsers={proj.workers} projectId={proj.id} onMemberAdded={addNewManager} cancelCallBackFunction={addNewManager}/>
+                                                                    <NewMemberForm projectUsers={[...proj.workers, ...proj.managers]} projectId={proj.id} onMemberAdded={addNewManager} cancelCallBackFunction={addNewManager}/>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -327,14 +347,23 @@ const ProjectsComponent = () => {
                                                 )}
 
                                                 {isAdministrator &&
-                                                    <Button
-                                                        className="mt-1 ms-2 w-100"
-                                                        variant="light"
-                                                        style={{ borderColor: 'black' }}
-                                                        onClick={handleAddWorker}
-                                                    >
-                                                        Add new worker
-                                                    </Button>
+                                                    <>
+                                                        <Button
+                                                            className="mt-1 ms-2 w-100"
+                                                            variant="light"
+                                                            style={{ borderColor: 'black' }}
+                                                            onClick={handleAddWorker}
+                                                        >
+                                                            Add new worker
+                                                        </Button>
+                                                    {showAddWorkerForm && (
+                                                        <div className="form-overlay">
+                                                            <div className="form-container">
+                                                                <NewMemberForm projectUsers={[...proj.workers, ...proj.managers]} projectId={proj.id} onMemberAdded={addNewWorker} cancelCallBackFunction={addNewWorker}/>
+                                                            </div>
+                                                        </div>
+                                                        )}
+                                                    </>
                                                 }
                                             </>
                                         )}

@@ -1,0 +1,45 @@
+.user-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-container {
+    width: 600px;
+    height: 400px;
+}
+
+.control-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select-container,
+.color-container,
+.date-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.select-container label,
+.color-container label,
+.date-container label {
+    margin-right: 10px;
+}
+
+.date-container input[type="date"] {
+    margin-left: 5px;
+}
+
+.chart-tooltip {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.chart-tooltip label {
+    font-weight: bold;
+    margin-right: 5px;
+}

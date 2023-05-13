@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Task from "./Task";
-import NewNoteButton from "./UI/NewNoteButton";
+import NewTaskButton from "./UI/NewTaskButton";
 import "./TaskList.css";
 import note from "./Task";
 import {useNavigate, useParams} from "react-router-dom";
+import UserChart from "./UserChart";
 
 const TaskList = () => {
     const params = useParams()
@@ -127,8 +128,9 @@ const TaskList = () => {
     return (
         <div className="TaskList">
             <div className="TaskList-header">
-                <h2>Notes</h2>
-                <NewNoteButton onClick={createNewTask}>Create new note</NewNoteButton>
+                <h2>Tasks</h2>
+                <UserChart/>
+                <NewTaskButton onClick={createNewTask}>Create new task</NewTaskButton>
                 <div className="TaskList-header-filters">
                     <div className="TaskList-header-filters-sort">
                         <span>Sort by:</span>
