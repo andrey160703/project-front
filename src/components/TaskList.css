@@ -36,6 +36,22 @@
     border-radius: 10px;
 }
 
+.TaskList-header-chart button {
+    background-color: #eaeaea;
+    color: #333;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.TaskList-header-chart button:hover {
+    background-color: #ccc;
+}
+
+
 .TaskList-header-buttons {
     display: flex;
     align-items: center;

@@ -128,9 +128,12 @@ const TaskList = () => {
     return (
         <div className="TaskList">
             <div className="TaskList-header-chart">
-                <button onClick={() => setShowChart(!showChart)}>Toggle Chart</button>
+                <button className="button" onClick={() => setShowChart(!showChart)}>
+                    Toggle Chart
+                </button>
                 {showChart && <UserChart data={tasks} />}
             </div>
+
             <div className="TaskList-header">
                 <h2>Tasks</h2>
                 <div className="TaskList-header-controls">
