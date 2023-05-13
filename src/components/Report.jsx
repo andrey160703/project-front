@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./Report.css";
 
-const Report = ({ text, initialRead }) => {
+const Report = ({ id, title, text, initialRead, wasMarkedCallBackFunction }) => {
     const [isReportRead, setIsReportRead] = useState(initialRead);
 
     const handleReportRead = () => {
         setIsReportRead(true);
+        wasMarkedCallBackFunction(id);
     };
 
     return (
         <div className={`Report ${isReportRead ? "Report-read" : ""}`}>
             <div className="Report-content">
-                <h2 className="Report-title">Report</h2>
+                <h2 className="Report-title">{title}</h2>
                 <p className="Report-text">{text}</p>
             </div>
             {!isReportRead && (

@@ -89,8 +89,8 @@ const TaskList = () => {
         }
     }
 
-    function goToReports(id) {
-        navigate('/report/' + id);
+    function goToReports(data) {
+        navigate('/reports/' + data.id);
     }
 
     function toggleShowClosed() {

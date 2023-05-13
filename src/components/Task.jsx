@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Task.css';
 
-const Task = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
+const Task = ({ callBackDeleteFunction, callBackCloseFunction, callBackMoveFunction, ...props }) => {
     const [title, changeTittleFunc] = useState(props.post.title);
     const [text, changeTextFunc] = useState(props.post.text);
     const [closed, setClosed] = useState(props.post.closed);
@@ -63,7 +63,7 @@ const Task = ({ callBackDeleteFunction, callBackCloseFunction, ...props }) => {
                             <div className="TaskFooter">
                                 <div className="TaskDate">Created on {props.post.createdDate.toLocaleDateString()}</div>
                                 <button className="TaskButton" onClick={() => setIsEditing(true)}>Edit task</button>
-                                <button className="TaskButton">View report</button>
+                                <button className="TaskButton" onClick={() => callBackMoveFunction(props.post)}>View report</button>
                                 <button className="TaskButton CloseButton" onClick={closeTask}>Close task</button>
                                 <button className="TaskButton DeleteButton" onClick={() => callBackDeleteFunction(props.post)}>Delete Task</button>
                             </div>
