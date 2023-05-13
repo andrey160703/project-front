@@ -1,0 +1,27 @@
+.ReportList-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ReportList-modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+.ReportList-modalTitle {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.ReportList-modalCloseButton {
+    margin-top: 10px;
+}
