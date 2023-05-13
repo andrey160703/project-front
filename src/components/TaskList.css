@@ -1,9 +1,3 @@
-/*.TaskList {*/
-/*    width: 100%;*/
-/*    background-color: white;*/
-/*    display: flex;*/
-/*}*/
-
 .TaskList {
     display: flex;
     flex-direction: column;
@@ -25,6 +19,37 @@
 .TaskList-header h2 {
     font-size: 28px;
     margin: 0;
+}
+
+.TaskList-header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.TaskList-header-chart {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+.TaskList-header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.TaskList-header-filters {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.TaskList-header-filters-sort,
+.TaskList-header-filters-toggle {
+    margin-right: 10px;
 }
 
 .TaskList-items {

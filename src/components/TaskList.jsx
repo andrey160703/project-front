@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTaskButton from "./UI/NewTaskButton";
 import "./TaskList.css";
-import note from "./Task";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserChart from "./UserChart";
 
 const TaskList = () => {
-    const params = useParams()
+    const params = useParams();
     const navigate = useNavigate();
     const [tasks, setTasks] = useState([ /// todo get request params.projectId params.workerId
         {
@@ -52,16 +51,17 @@ const TaskList = () => {
         },
     ]);
 
-    const [currentTasks, setCurrentTasks] = useState(tasks)
+    const [currentTasks, setCurrentTasks] = useState(tasks);
     const [showClosed, setShowClosed] = useState(false);
     const [sortBy, setSortBy] = useState("newest");
+    const [showChart, setShowChart] = useState(false);
 
     useEffect(() => {
         sortTasks();
     }, [tasks, showClosed, sortBy]);
 
     function createNewTask() {
-        const newNote = {
+        const newTask = {
             id: Date.now(),
             title: "",
             text: "",
@@ -69,7 +69,7 @@ const TaskList = () => {
             closed: false,
             closedDate: null,
         };
-        setTasks([...tasks, newNote]);
+        setTasks([newTask, ...tasks]);
     }
 
     function deleteTask(post) {
@@ -127,23 +127,34 @@ const TaskList = () => {
     /// todo show worker's information before notes
     return (
         <div className="TaskList">
+            <div className="TaskList-header-chart">
+                <button onClick={() => setShowChart(!showChart)}>Toggle Chart</button>
+                {showChart && <UserChart data={tasks} />}
+            </div>
             <div className="TaskList-header">
                 <h2>Tasks</h2>
-                <UserChart/>
-                <NewTaskButton onClick={createNewTask}>Create new task</NewTaskButton>
-                <div className="TaskList-header-filters">
-                    <div className="TaskList-header-filters-sort">
-                        <span>Sort by:</span>
-                        <select onChange={handleSortChange}>
-                            <option value="newest">Date created: newest first</option>
-                            <option value="oldest">Date created: oldest first</option>
-                            <option value="openFirst">Open notes first</option>
-                            <option value="closedFirst">Closed notes first</option>
-                        </select>
-                    </div>
-                    <div className="TaskList-header-filters-toggle">
-                        <label>Show closed notes:</label>
-                        <input type="checkbox" onChange={toggleShowClosed} checked={showClosed}/>
+                <div className="TaskList-header-controls">
+                    <div className="TaskList-header-buttons">
+                        <NewTaskButton onClick={createNewTask}>Create new task</NewTaskButton>
+                        <div className="TaskList-header-filters">
+                            <div className="TaskList-header-filters-sort">
+                                <span>Sort by:</span>
+                                <select onChange={handleSortChange}>
+                                    <option value="newest">Date created: newest first</option>
+                                    <option value="oldest">Date created: oldest first</option>
+                                    <option value="openFirst">Open notes first</option>
+                                    <option value="closedFirst">Closed notes first</option>
+                                </select>
+                            </div>
+                            <div className="TaskList-header-filters-toggle">
+                                <label>Show closed notes:</label>
+                                <input
+                                    type="checkbox"
+                                    onChange={toggleShowClosed}
+                                    checked={showClosed}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
