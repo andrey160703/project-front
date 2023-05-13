@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import Header from "../components/Header";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Report from "../components/Report";
 import ReportList from "../components/ReportList";
+import "./styles/BackButton.css";
 
 const Reports = () => {
     const params = useParams(); /// todo get request by taskId
+    const navigate = useNavigate();
     const reports = [
         {
             id: 1,
@@ -53,9 +55,15 @@ const Reports = () => {
         },
     ];
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
 
     return (
         <div>
+            <button className="BackButton" onClick={handleGoBack}>
+                Go Back
+            </button>
              <ReportList reports={reports}/>}
         </div>
     );
