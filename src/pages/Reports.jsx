@@ -61,6 +61,7 @@ const Reports = () => {
 
     return (
         <div>
+            <Header/>
             <button className="BackButton" onClick={handleGoBack}>
                 Go Back
             </button>

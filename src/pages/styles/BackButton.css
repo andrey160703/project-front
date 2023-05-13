@@ -9,8 +9,9 @@
     cursor: pointer;
     position: fixed;
     left: 20px;
-    top: 20px;
+    top: 70px;
     z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .BackButton:hover {
